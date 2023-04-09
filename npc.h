@@ -10,7 +10,7 @@ class NPC: private GameCharacter{
         vector<Weapon>commodity;
     public:
         NPC();
-        NPC(string,vector<Weapon>);
+        NPC(string, vector<Weapon>, string, int, int, int, int);
         void showCommodity();
         bool buyWeapon(Weapon);
         void setScript(string);

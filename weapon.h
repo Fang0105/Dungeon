@@ -1,7 +1,7 @@
 #ifndef __WEAPON_H
 #define __WEAPON_H
 
-#include<iostream>
+#include<string>
 
 using namespace std;
 

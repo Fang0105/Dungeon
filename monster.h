@@ -9,10 +9,11 @@ class Monster: private GameCharacter{
         int dropMoney;
     public:
         Monster();
+        Monster(int, int, string, int, int, int, int);
         void setDropExp(int);
         void setDropMoney(int);
-        int getDropExp(int);
-        int getDropMoney(int);
+        int getDropExp();
+        int getDropMoney();
 };
 
 #endif

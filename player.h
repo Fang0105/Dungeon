@@ -3,18 +3,26 @@
 
 #include"gameCharacter.h"
 #include"room.h"
+#include"weapon.h"
+#include<vector>
 
 class Room;
 
 class Player: private GameCharacter{
     private:
-        int weapons;
+        vector<Weapon> weapons;
         int money;
         int level;
         Room *currentRoom;
     public:
         Player();
-        Player(int, int, int);
+        Player(vector<Weapon>, int, int, string, int, int, int, int);
+        void setWeapon(vector<Weapon>);
+        void setMoney(int);
+        void setLevel(int);
+        vector<Weapon> getWeapon();
+        int getMoney();
+        int getLevel();
         void getNewWeapon(Weapon);
         virtual void showStatus()=0;
         virtual void attack(::GameCharacter*)=0;

@@ -15,7 +15,7 @@ class Room{
         Room *leftRoom;
         Room *rightRoom;
     public:
-        Room(Room*,Room*,Room,Room*);
+        Room(Room*,Room*,Room*,Room*);
         void setUpRoom(Room*);
         void setDownRoom(Room*);
         void setLeftRoom(Room*);
