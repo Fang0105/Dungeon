@@ -3,11 +3,11 @@
 
 #include"gameCharacter.h"
 
-class Monster: private GameCharacter{
-    private:
+class Monster: public GameCharacter{
+    public:
         int dropExp;
         int dropMoney;
-    public:
+
         Monster();
         Monster(int, int, string, int, int, int, int);
         void setDropExp(int);

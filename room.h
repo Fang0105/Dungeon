@@ -9,12 +9,12 @@
 class Player;
 
 class Room{
-    private:
+    public:
         Room *upRoom;
         Room *downRoom;
         Room *leftRoom;
         Room *rightRoom;
-    public:
+
         Room(Room*,Room*,Room*,Room*);
         void setUpRoom(Room*);
         void setDownRoom(Room*);
@@ -26,11 +26,11 @@ class Room{
         Room* getRightRoom();
 };
 
-class TreasureRoom: private Room{
-    private:
+class TreasureRoom: public Room{
+    public:
         Weapon dropWeapon;
         int dropMoney;
-    public:
+
         TreasureRoom();
         TreasureRoom(Weapon,int);
         void getTresure(Player*);
@@ -40,20 +40,20 @@ class TreasureRoom: private Room{
         int getDropMoney();
 };
 
-class MonsterRoom: private Room{
-    private:
-        Monster *monster;
+class MonsterRoom: public Room{
     public:
+        Monster *monster;
+
         MonsterRoom();
         MonsterRoom(Monster*);
         void setMonster(Monster*);
         Monster* getMonster();
 };
 
-class NPCRoom: private Room{
-    private:
-        NPC *npc;
+class NPCRoom: public Room{
     public:
+        NPC *npc;
+
         NPCRoom();
         NPCRoom(NPC*);
         void setNPC(NPC*);

@@ -5,15 +5,16 @@
 #include"room.h"
 
 class Dungeon{
-    private:
+    public:
         Player *player;
         Room *initialRoom;
-    public:
+
         Dungeon();
-        Dungeon(Player*);
+        Dungeon(Player*, Room*);
         void startGame();
         void runGame();
         Room* createMap();
+        Player* createPlayer();
         bool checkGameLogic();
         void chooseAction();
         void setPlayer(Player*);

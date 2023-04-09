@@ -6,13 +6,13 @@
 using namespace std;
 
 class GameCharacter{
-    private:
+    public:
         string name;
         int maxHealth;
         int currentHealth;
         int attack;
         int defense;
-    public:
+
         GameCharacter();
         GameCharacter(string, int, int, int, int);
         bool checkIsDead();

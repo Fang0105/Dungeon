@@ -4,11 +4,11 @@
 #include"gameCharacter.h"
 #include"weapon.h"
 
-class NPC: private GameCharacter{
-    private:
+class NPC: public GameCharacter{
+    public:
         string script;
         vector<Weapon>commodity;
-    public:
+
         NPC();
         NPC(string, vector<Weapon>, string, int, int, int, int);
         void showCommodity();

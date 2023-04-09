@@ -8,13 +8,13 @@
 
 class Room;
 
-class Player: private GameCharacter{
-    private:
+class Player: public GameCharacter{
+    public:
         vector<Weapon> weapons;
         int money;
         int level;
         Room *currentRoom;
-    public:
+
         Player();
         Player(vector<Weapon>, int, int, string, int, int, int, int);
         void setWeapon(vector<Weapon>);
@@ -30,10 +30,10 @@ class Player: private GameCharacter{
 };
 
 
-class Tank: private Player{
-    private:
-        int perfectDefensePromity;
+class Tank: public Player{
     public:
+        int perfectDefensePromity;
+
         virtual void attack(::GameCharacter*);
         virtual void hurt();
         virtual void showStatus();
@@ -41,10 +41,10 @@ class Tank: private Player{
         int getPerfectDefensePromity();
 };
 
-class Fighter: private Player{
-    private:
-        int hardStrikePromity;
+class Fighter: public Player{
     public:
+        int hardStrikePromity;
+
         virtual void attack(::GameCharacter*);
         virtual void hurt();
         virtual void showStatus();
@@ -52,10 +52,10 @@ class Fighter: private Player{
         int getHardStrikePromity();
 };
 
-class Magician: private Player{
-    private:
-        int perfectHealPromity;
+class Magician: public Player{
     public:
+        int perfectHealPromity;
+
         virtual void attack(::GameCharacter*);
         virtual void hurt();
         virtual void showStatus();

@@ -6,12 +6,12 @@
 using namespace std;
 
 class Weapon{
-    private:
+    public:
         string name;
         int level;
         string occupation;
         int durability;        
-    public:
+    
         Weapon();
         Weapon(string, int, string, int);
         void consume();
