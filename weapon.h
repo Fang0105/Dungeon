@@ -25,4 +25,6 @@ class Weapon{
         int getDurability();
 };
 
+ostream &operator<<(ostream&,const Weapon&);
+
 #endif

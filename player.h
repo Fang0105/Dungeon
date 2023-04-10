@@ -24,11 +24,13 @@ class Player: public GameCharacter{
         void setLevel(int);
         void setExp(int);
         void setTag(string);
+        void setCurrentRoom(Room*);
         vector<Weapon> getWeapon();
         int getMoney();
         int getLevel();
         int getExp();
         string getTag();
+        Room* getCurrentRoom();
         void getNewWeapon(Weapon);
         void levelUp();
         virtual void showStatus()=0;

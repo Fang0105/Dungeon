@@ -17,7 +17,7 @@ class Dungeon{
         Player* createPlayer();
         bool checkGameLogic();
         void chooseAction();
-        void moveToAnotherRoom(Player*);
+        void moveToAnotherRoom();
         void setPlayer(Player*);
         void setInitialRoom(Room*);
         Player* getPlayer();

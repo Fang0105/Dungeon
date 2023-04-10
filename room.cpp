@@ -30,6 +30,13 @@ void Room::setRightRoom(Room *rightRoom){
     this->rightRoom = rightRoom;
 }
 
+void Room::setFourRoom(Room *upRoom,Room *downRoom,Room *leftRoom,Room *rightRoom){
+    setUpRoom(upRoom);
+    setDownRoom(downRoom);
+    setLeftRoom(leftRoom);
+    setRightRoom(rightRoom);
+}
+
 void Room::setTag(string tag){
     this->tag = tag;
 }
@@ -97,10 +104,13 @@ Monster* MonsterRoom::getMonster(){
     return this->monster;
 }
 
-NPCRoom::NPCRoom(){}
+NPCRoom::NPCRoom(){
+    this->tag = "NPCRoom";
+}
 
 NPCRoom::NPCRoom(NPC* npc,Room *upRoom, Room *downRoom, Room *leftRoom, Room *rightRoom):Room(upRoom,downRoom,leftRoom,rightRoom){
     this->npc = npc;
+    this->tag = "NPCRoom";
 }
 
 void NPCRoom::setNPC(NPC* npc){

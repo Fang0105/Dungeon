@@ -23,6 +23,7 @@ class Room{
         void setLeftRoom(Room*);
         void setRightRoom(Room*);
         void setTag(string);
+        void setFourRoom(Room*, Room*, Room*, Room*);
         Room* getUpRoom();
         Room* getDownRoom();
         Room* getLeftRoom();

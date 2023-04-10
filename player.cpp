@@ -2,6 +2,7 @@
 #include"player.h"
 using namespace std;
 
+
 Player::Player(){}
 
 Player::Player(vector<Weapon>weapons, int money, int level,int exp,string name, int maxHealth, int currentHealth, int attack, int defense):GameCharacter(name,maxHealth,currentHealth,attack,defense){
@@ -31,6 +32,10 @@ void Player::setTag(string tag){
     this->tag = tag;
 }
 
+void Player::setCurrentRoom(Room* currentrRoom){
+    this->currentRoom = currentrRoom;
+}
+
 vector<Weapon> Player::getWeapon(){
     return this->weapons;
 }
@@ -49,6 +54,10 @@ int Player::getExp(){
 
 string Player::getTag(){
     return this->tag;
+}
+
+Room* Player::getCurrentRoom(){
+    return this->currentRoom;
 }
 
 Tank::Tank(){
@@ -112,7 +121,6 @@ int Magician::getPerfectHealthPromity(){
 
 //Tank
 void Tank::showStatus(){
-    //cout<<"this is show status from tank"<<endl;
     cout<<"Name : "<<getName()<<endl;
     cout<<"Occupation : "<<getTag()<<endl;
     cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
@@ -121,23 +129,73 @@ void Tank::showStatus(){
     cout<<"Money : "<<getMoney()<<endl;
     cout<<"Level : "<<getLevel()<<endl;
     cout<<"EXP : "<<getExp()<<endl;
-    //TODO : finish this
+    cout<<"Weapons : ";
+    vector<Weapon>w = getWeapon();
+    if(w.size()==0){
+       cout<<" no weapon"<<endl;
+    }else{
+        for(int i=0;i<w.size();i++){
+            if(i!=0){
+                cout<<"         ";
+            }
+            cout<<w[i]<<endl;
+        }
+    }
+    cout<<"PerfectDefensePromity : "<<getPerfectDefensePromity()<<endl;
 }
 void Tank::attack(::GameCharacter*){}
 void Tank::hurt(){}
 
 //Fighter
 void Fighter::showStatus(){
-    cout<<"this is show status from fighter"<<endl;
-    //TODO : finish this
+    cout<<"Name : "<<getName()<<endl;
+    cout<<"Occupation : "<<getTag()<<endl;
+    cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
+    cout<<"Attack : "<<getAttack()<<endl;
+    cout<<"Defense : "<<getDefense()<<endl;
+    cout<<"Money : "<<getMoney()<<endl;
+    cout<<"Level : "<<getLevel()<<endl;
+    cout<<"EXP : "<<getExp()<<endl;
+    cout<<"Weapons : ";
+    vector<Weapon>w = getWeapon();
+    if(w.size()==0){
+       cout<<" no weapon"<<endl;
+    }else{
+        for(int i=0;i<w.size();i++){
+            if(i!=0){
+                cout<<"         ";
+            }
+            cout<<w[i]<<endl;
+        }
+    }
+    cout<<"HardStrikePromity : "<<getHardStrikePromity()<<endl;
 }
 void Fighter::attack(::GameCharacter*){}
 void Fighter::hurt(){}
 
 //Magician
 void Magician::showStatus(){
-    cout<<"this is show status from magician"<<endl;
-    //TODO : finish this
+    cout<<"Name : "<<getName()<<endl;
+    cout<<"Occupation : "<<getTag()<<endl;
+    cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
+    cout<<"Attack : "<<getAttack()<<endl;
+    cout<<"Defense : "<<getDefense()<<endl;
+    cout<<"Money : "<<getMoney()<<endl;
+    cout<<"Level : "<<getLevel()<<endl;
+    cout<<"EXP : "<<getExp()<<endl;
+    cout<<"Weapons : ";
+    vector<Weapon>w = getWeapon();
+    if(w.size()==0){
+       cout<<" no weapon"<<endl;
+    }else{
+        for(int i=0;i<w.size();i++){
+            if(i!=0){
+                cout<<"         ";
+            }
+            cout<<w[i]<<endl;
+        }
+    }
+    cout<<"perfectHealPromity : "<<getPerfectHealthPromity()<<endl;
 }
 void Magician::attack(::GameCharacter*){}
 void Magician::hurt(){}
