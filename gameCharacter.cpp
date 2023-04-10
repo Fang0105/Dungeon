@@ -2,6 +2,8 @@
 #include"gameCharacter.h"
 using namespace std;
 
+GameCharacter::GameCharacter(){}
+
 GameCharacter::GameCharacter(string name, int maxHealth, int currentHealth, int attack, int defense){
     this->name = name;
     this->maxHealth = maxHealth;

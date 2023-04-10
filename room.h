@@ -14,16 +14,20 @@ class Room{
         Room *downRoom;
         Room *leftRoom;
         Room *rightRoom;
+        string tag;
 
+        Room();
         Room(Room*,Room*,Room*,Room*);
         void setUpRoom(Room*);
         void setDownRoom(Room*);
         void setLeftRoom(Room*);
         void setRightRoom(Room*);
+        void setTag(string);
         Room* getUpRoom();
         Room* getDownRoom();
         Room* getLeftRoom();
         Room* getRightRoom();
+        string getTag();
 };
 
 class TreasureRoom: public Room{
@@ -32,7 +36,7 @@ class TreasureRoom: public Room{
         int dropMoney;
 
         TreasureRoom();
-        TreasureRoom(Weapon,int);
+        TreasureRoom(Weapon,int,Room*,Room*,Room*,Room*);
         void getTresure(Player*);
         void setDropWeapon(Weapon);
         void setDropMoney(int);
@@ -45,7 +49,7 @@ class MonsterRoom: public Room{
         Monster *monster;
 
         MonsterRoom();
-        MonsterRoom(Monster*);
+        MonsterRoom(Monster*,Room*,Room*,Room*,Room*);
         void setMonster(Monster*);
         Monster* getMonster();
 };
@@ -55,7 +59,7 @@ class NPCRoom: public Room{
         NPC *npc;
 
         NPCRoom();
-        NPCRoom(NPC*);
+        NPCRoom(NPC*,Room*,Room*,Room*,Room*);
         void setNPC(NPC*);
         NPC* getNPC();
 };

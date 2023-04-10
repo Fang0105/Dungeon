@@ -1,11 +1,11 @@
 #include"dungeon.h"
-#include"gameCharacter.h"
 
 using namespace std;
 
 int main(){
-    
-
+    Dungeon dungeon;
+    dungeon.startGame();
+    dungeon.runGame();
 
 
 
