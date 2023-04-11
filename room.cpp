@@ -1,5 +1,6 @@
 #include<iostream>
 #include"room.h"
+#include"battle.h"
 using namespace std;
 
 Room::Room(){
@@ -119,4 +120,34 @@ void NPCRoom::setNPC(NPC* npc){
 
 NPC* NPCRoom::getNPC(){
     return this->npc;
+}
+
+void Room::roomEvent(Player* player){
+    cout<<"[InitialRoom]"<<endl;
+    cout<<"There is nothing to do in this room"<<endl;
+}
+
+void MonsterRoom::roomEvent(Player* player){
+    cout<<"[MonsterRoom]"<<endl;
+    string fight;
+    do{
+        cout<<"Do you want to fight with monster? (A)Yes (B)No"<<endl<<"=>";
+        cin>>fight;
+        if(fight=="A"){
+            battleSystem(player,getMonster());
+            break;
+        }else if(fight=="B"){
+            break;
+        }else{
+            cout<<fight<<" is no a choice"<<endl;
+        }
+    }while(true);
+}
+
+void TreasureRoom::roomEvent(Player* player){
+    cout<<"[TreasureRoom]"<<endl;
+}
+
+void NPCRoom::roomEvent(Player* player){
+    cout<<"[NPCRoom]"<<endl;
 }

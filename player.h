@@ -4,9 +4,11 @@
 #include"gameCharacter.h"
 #include"room.h"
 #include"weapon.h"
+#include"monster.h"
 #include<vector>
 
 class Room;
+class Monster;
 
 class Player: public GameCharacter{
     public:
@@ -19,23 +21,26 @@ class Player: public GameCharacter{
 
         Player();
         Player(vector<Weapon>, int, int, int, string, int, int, int, int);
-        void setWeapon(vector<Weapon>);
+        void setWeapons(vector<Weapon>);
         void setMoney(int);
         void setLevel(int);
         void setExp(int);
         void setTag(string);
         void setCurrentRoom(Room*);
-        vector<Weapon> getWeapon();
+        vector<Weapon> getWeapons();
         int getMoney();
         int getLevel();
         int getExp();
         string getTag();
         Room* getCurrentRoom();
         void getNewWeapon(Weapon);
-        void levelUp();
+        void heal();
         virtual void showStatus()=0;
-        virtual void attack(::GameCharacter*)=0;
-        virtual void hurt()=0;
+        virtual void attackMonster(Monster*, Weapon*)=0;
+        virtual void hurt(int)=0;
+        void levelUp();
+        Weapon* chooseWeapon();
+        void deleteBrokenWeapons();
 };
 
 
@@ -46,8 +51,8 @@ class Tank: public Player{
 
         Tank();
         Tank(int,vector<Weapon>, int, int, int, string, int, int, int, int);
-        virtual void attack(::GameCharacter*);
-        virtual void hurt();
+        virtual void attackMonster(Monster*, Weapon*);
+        virtual void hurt(int);
         virtual void showStatus();
         void setPerfectDefensePromity(int);
         int getPerfectDefensePromity();
@@ -59,8 +64,8 @@ class Fighter: public Player{
 
         Fighter();
         Fighter(int,vector<Weapon>, int, int, int, string, int, int, int, int);
-        virtual void attack(::GameCharacter*);
-        virtual void hurt();
+        virtual void attackMonster(Monster*, Weapon*);
+        virtual void hurt(int);
         virtual void showStatus();
         void setHardStrikePromity(int);
         int getHardStrikePromity();
@@ -72,8 +77,8 @@ class Magician: public Player{
 
         Magician();
         Magician(int,vector<Weapon>, int, int, int, string, int, int, int, int);
-        virtual void attack(::GameCharacter*);
-        virtual void hurt();
+        virtual void attackMonster(Monster*, Weapon*);
+        virtual void hurt(int);
         virtual void showStatus();
         void setPerfectHealthPromity(int);
         int getPerfectHealthPromity();

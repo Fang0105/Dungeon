@@ -8,21 +8,20 @@ using namespace std;
 class Weapon{
     public:
         string name;
-        int level;
         string occupation;
         int durability;        
     
         Weapon();
-        Weapon(string, int, string, int);
+        Weapon(string, string, int);
         void consume();
         void setName(string);
-        void setLevel(string);
         void setOccupation(string);
         void setDurability(int);
         string getName();
-        int getLevel();
         string getOccupation();
         int getDurability();
+        bool isBroken();
+        void wear();
 };
 
 ostream &operator<<(ostream&,const Weapon&);

@@ -7,7 +7,7 @@
 #include"player.h"
 
 class Player;
-
+class Monster;
 class Room{
     public:
         Room *upRoom;
@@ -29,6 +29,7 @@ class Room{
         Room* getLeftRoom();
         Room* getRightRoom();
         string getTag();
+        virtual void roomEvent(Player*);
 };
 
 class TreasureRoom: public Room{
@@ -43,6 +44,7 @@ class TreasureRoom: public Room{
         void setDropMoney(int);
         Weapon getDropWeapon();
         int getDropMoney();
+        virtual void roomEvent(Player*);
 };
 
 class MonsterRoom: public Room{
@@ -53,6 +55,7 @@ class MonsterRoom: public Room{
         MonsterRoom(Monster*,Room*,Room*,Room*,Room*);
         void setMonster(Monster*);
         Monster* getMonster();
+        virtual void roomEvent(Player*);
 };
 
 class NPCRoom: public Room{
@@ -63,6 +66,7 @@ class NPCRoom: public Room{
         NPCRoom(NPC*,Room*,Room*,Room*,Room*);
         void setNPC(NPC*);
         NPC* getNPC();
+        virtual void roomEvent(Player*);
 };
 
 #endif

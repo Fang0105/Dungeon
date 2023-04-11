@@ -1,7 +1,13 @@
 #include<iostream>
+#include<cstdlib>
+#include<ctime>
 #include"player.h"
 using namespace std;
 
+int getRandomNumer1(int a,int b){
+    srand(time(NULL));
+    return (rand()%(b-a+1)+a);
+}
 
 Player::Player(){}
 
@@ -12,7 +18,7 @@ Player::Player(vector<Weapon>weapons, int money, int level,int exp,string name, 
     this->exp = exp;
 }
 
-void Player::setWeapon(vector<Weapon>weapons){
+void Player::setWeapons(vector<Weapon>weapons){
     this->weapons = weapons;
 }
 
@@ -36,7 +42,7 @@ void Player::setCurrentRoom(Room* currentrRoom){
     this->currentRoom = currentrRoom;
 }
 
-vector<Weapon> Player::getWeapon(){
+vector<Weapon> Player::getWeapons(){
     return this->weapons;
 }
 
@@ -52,12 +58,64 @@ int Player::getExp(){
     return this->exp;
 }
 
+void Player::levelUp(){
+    if(getLevel()==20){
+        return;
+    }
+    while( getLevel()<20 && getExp()>=100 ){
+        cout<<"Level up : "<<getLevel();
+        setMaxHealth(getMaxHealth()+100);
+        setAttack(getAttack()+3);
+        setDefense(getDefense()+1);
+        setLevel(getLevel()+1);
+        setExp(getExp()-100);
+        cout<<" -> "<<getLevel()<<endl;
+    }
+}
+
 string Player::getTag(){
     return this->tag;
 }
 
 Room* Player::getCurrentRoom(){
     return this->currentRoom;
+}
+
+void Player::heal(){
+    setCurrentHealth(getMaxHealth());
+}
+
+Weapon* Player::chooseWeapon(){
+    if(this->weapons.size()==0){
+       cout<<" no weapon"<<endl;
+    }else{
+        int idx;
+        do{
+            cout<<"Choose one weapon :"<<endl;
+            for(int i=0;i<this->weapons.size();i++){
+                cout<<"("<<i+1<<") "<<this->weapons[i]<<endl;
+            }
+            cout<<"=>";
+            cin>>idx;
+            if( idx>0 && idx<=this->weapons.size() ){
+                return &this->weapons[idx-1];
+            }else{
+                cout<<idx<<" is not a choice"<<endl;
+            }
+        }while(true);
+    }
+
+}
+
+void Player::deleteBrokenWeapons(){
+    vector<Weapon>afterDelete;
+    vector<Weapon>beforeDelete = getWeapons();
+    for(int i=0;i<beforeDelete.size();i++){
+        if(beforeDelete[i].getDurability()>0){
+            afterDelete.push_back(beforeDelete[i]);
+        }
+    }
+    setWeapons(afterDelete);
 }
 
 Tank::Tank(){
@@ -76,6 +134,7 @@ void Tank::setPerfectDefensePromity(int perfectDefensePromity){
 }
 
 int Tank::getPerfectDefensePromity(){
+    this->perfectDefensePromity = getLevel()*2;
     return this->perfectDefensePromity;
 }
 
@@ -95,6 +154,7 @@ void Fighter::setHardStrikePromity(int hardStrikePromity){
 }
 
 int Fighter::getHardStrikePromity(){
+    this->hardStrikePromity = getLevel();
     return this->hardStrikePromity;
 }
 
@@ -114,6 +174,7 @@ void Magician::setPerfectHealthPromity(int perfectHealPromity){
 }
 
 int Magician::getPerfectHealthPromity(){
+    this->perfectHealPromity = getLevel()/2;
     return this->perfectHealPromity;
 }
 
@@ -130,7 +191,7 @@ void Tank::showStatus(){
     cout<<"Level : "<<getLevel()<<endl;
     cout<<"EXP : "<<getExp()<<endl;
     cout<<"Weapons : ";
-    vector<Weapon>w = getWeapon();
+    vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
@@ -143,8 +204,21 @@ void Tank::showStatus(){
     }
     cout<<"PerfectDefensePromity : "<<getPerfectDefensePromity()<<endl;
 }
-void Tank::attack(::GameCharacter*){}
-void Tank::hurt(){}
+void Tank::attackMonster(Monster* monster, Weapon* weapon){
+    int totalAttack = getAttack();
+    if(weapon->getOccupation()=="Tank"){
+        totalAttack*=1.5;
+    }
+    monster->hurt(totalAttack);
+}
+void Tank::hurt(int totalAttack){
+    int pp = getRandomNumer1(1,100);
+    if(pp<=getPerfectDefensePromity()){
+        cout<<"Perfect Defense !!!"<<endl;
+    }else{
+        setCurrentHealth(getCurrentHealth()-max(0,totalAttack-getDefense()));
+    }
+}
 
 //Fighter
 void Fighter::showStatus(){
@@ -157,7 +231,7 @@ void Fighter::showStatus(){
     cout<<"Level : "<<getLevel()<<endl;
     cout<<"EXP : "<<getExp()<<endl;
     cout<<"Weapons : ";
-    vector<Weapon>w = getWeapon();
+    vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
@@ -170,8 +244,21 @@ void Fighter::showStatus(){
     }
     cout<<"HardStrikePromity : "<<getHardStrikePromity()<<endl;
 }
-void Fighter::attack(::GameCharacter*){}
-void Fighter::hurt(){}
+void Fighter::attackMonster(Monster* monster,Weapon* weapon){
+    int hp = getRandomNumer1(1,100);
+    int totalAttack = getAttack();
+    if(hp<=getHardStrikePromity()){
+        cout<<"Hard Strike !!!"<<endl;
+        totalAttack*=3;
+    }
+    if(weapon->getOccupation()=="Fighter"){
+        totalAttack*=1.5;
+    }
+    monster->hurt(totalAttack);
+}
+void Fighter::hurt(int totalAttack){
+    setCurrentHealth(getCurrentHealth()-max(0,totalAttack-getDefense()));
+}
 
 //Magician
 void Magician::showStatus(){
@@ -184,7 +271,7 @@ void Magician::showStatus(){
     cout<<"Level : "<<getLevel()<<endl;
     cout<<"EXP : "<<getExp()<<endl;
     cout<<"Weapons : ";
-    vector<Weapon>w = getWeapon();
+    vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
@@ -197,5 +284,17 @@ void Magician::showStatus(){
     }
     cout<<"perfectHealPromity : "<<getPerfectHealthPromity()<<endl;
 }
-void Magician::attack(::GameCharacter*){}
-void Magician::hurt(){}
+void Magician::attackMonster(Monster* monster,Weapon* weapon){
+    int totalAttack = getAttack();
+    if(weapon->getOccupation()=="Magician"){
+        totalAttack*=1.5;
+    }
+    monster->hurt(totalAttack);
+}
+void Magician::hurt(int totalAttack){
+    setCurrentHealth(getCurrentHealth()-max(0,totalAttack-getDefense()));
+    int pp = getRandomNumer1(1,100);
+    if(pp<=getPerfectHealthPromity()){
+        setCurrentHealth(getMaxHealth());
+    }
+}
