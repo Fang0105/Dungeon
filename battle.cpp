@@ -5,7 +5,6 @@
 using namespace std;
 
 int getRandomNumer(int a,int b){
-    srand(time(NULL));
     return (rand()%(b-a+1)+a);
 }
 
@@ -15,7 +14,7 @@ void battleSystem(Player *player,Monster *monster){
     bool retreat = false;
     while( (player->checkIsDead()==false) && (monster->checkIsDead()==false) && (!retreat) ){
         do{
-            cout<<"player: "<<player->getCurrentHealth()<<"/"<<player->getMaxHealth()<<" , monster: "<<monster->getCurrentHealth()<<"/"<<monster->getMaxHealth()<<endl;
+            cout<<player->getName()<<": "<<player->getCurrentHealth()<<"/"<<player->getMaxHealth()<<" , "<<monster->getName()<<": "<<monster->getCurrentHealth()<<"/"<<monster->getMaxHealth()<<endl;
             cout<<"Choose one Action: (A)Fight (B)retreat"<<endl<<"=>";
             string action;
             cin>>action;
@@ -42,6 +41,7 @@ void battleSystem(Player *player,Monster *monster){
         player->heal();
     }
     if(monster->checkIsDead()){
+        srand(time(NULL));
         cout<<"You win !!"<<endl;
         player->setMoney(player->getMoney() + monster->getDropMoney());
         player->setExp(player->getExp() + monster->getDropExp());

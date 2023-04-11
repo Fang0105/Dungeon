@@ -1,9 +1,15 @@
 #include<iostream>
+#include<cstdlib>
+#include<ctime>
 #include"dungeon.h"
 #include"monster.h"
 #include"npc.h"
 #include"player.h"
 using namespace std;
+
+int getRandomNumer2(int a,int b){
+    return (rand()%(b-a+1)+a);
+}
 
 Dungeon::Dungeon(){}
 
@@ -32,7 +38,12 @@ Room* Dungeon::createMap(){
     Room *initialRoom = new Room;
 
     NPCRoom *npcRoom_1 = new NPCRoom;
-    NPC *npc_1;
+    vector<Commodity>commodity;
+    Weapon w1 = Weapon("Fighter Sword 1","Fighter",20,10);
+    Commodity c1 = Commodity(10,w1);
+    commodity.push_back(c1);
+    srand(time(NULL));
+    NPC *npc_1 = new NPC(script[getRandomNumer2(0,2)],commodity,NPCname[getRandomNumer2(0,3)],1,1,1,1);
 
     MonsterRoom *monsterRoom_1 = new MonsterRoom, *monsterRoom_2 = new MonsterRoom, *monsterRoom_3 = new MonsterRoom;
     Monster *monster_1 = new Monster, *monster_2 = new Monster, *monster_3 = new Monster;
@@ -53,6 +64,8 @@ Room* Dungeon::createMap(){
     monsterRoom_2->setMonster(monster_2);
     monsterRoom_3->setMonster(monster_3);
     
+    npcRoom_1->setNPC(npc_1);
+
     return initialRoom;
 }
 
@@ -68,9 +81,9 @@ Player* Dungeon::createPlayer(){
 
     //------------------------Player-------------------------------
     vector<Weapon> weapons;
-    Weapon w = Weapon("Bare Hand","all",100);
+    Weapon w = Weapon("Bare Hand","all",100,10);
     weapons.push_back(w);
-    int money = 0;
+    int money = 1000;
     int level = 0;
     int exp = 0;
     Room *currentRoom = getInitialRoom();

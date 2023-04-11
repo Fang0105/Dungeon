@@ -1,6 +1,7 @@
 #include<iostream>
 #include"room.h"
 #include"battle.h"
+#include"npc.h"
 using namespace std;
 
 Room::Room(){
@@ -150,4 +151,39 @@ void TreasureRoom::roomEvent(Player* player){
 
 void NPCRoom::roomEvent(Player* player){
     cout<<"[NPCRoom]"<<endl;
+    cout<<"I'm "<<getNPC()->getName()<<"..."<<getNPC()->getScript()<<endl;
+    string buySomething;
+    do{
+        cout<<"Want to buy something? (A)Yes (B)No"<<endl<<"=>";
+        cin>>buySomething;
+        if(buySomething=="A"){
+            int idx = getNPC()->buyCommodity(player->getMoney());
+            if(idx==-2){
+                player->setMoney(player->getMoney()-20);
+                continue;
+            }else if(idx!=-1){
+                player->getNewWeapon(getNPC()->getCommodity()[idx].getWeapon());
+                player->setMoney(player->getMoney() - getNPC()->getCommodity()[idx].getPrice());
+                vector<Commodity>oldCommodity = getNPC()->getCommodity();
+                vector<Commodity>newCommodity;
+                for(int i=0;i<oldCommodity.size();i++){
+                    if(i!=idx){
+                        newCommodity.push_back(oldCommodity[i]);
+                    }
+                }
+                getNPC()->setCommodity(newCommodity);
+                if(getNPC()->getCommodity().size()==0){
+                    getNPC()->setCommodity(generateCommodities());
+                }
+            }
+            break;
+        }else if(buySomething=="B"){
+            cout<<"alright...bye bye"<<endl;
+            break;
+        }else{
+            cout<<buySomething<<" is not a choice"<<endl;
+        }
+    }while(true);
+    
+    
 }

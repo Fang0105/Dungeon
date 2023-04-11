@@ -4,19 +4,39 @@
 #include"gameCharacter.h"
 #include"weapon.h"
 
+class Commodity{
+    public:
+        int price;
+        Weapon weapon;
+
+        Commodity();
+        Commodity(int,Weapon);
+        void setPrice(int);
+        void setWeapon(Weapon);
+        int getPrice();
+        Weapon getWeapon();
+};
+
 class NPC: public GameCharacter{
     public:
         string script;
-        vector<Weapon>commodity;
+        vector<Commodity>commodity;
 
         NPC();
-        NPC(string, vector<Weapon>, string, int, int, int, int);
+        NPC(string, vector<Commodity>, string, int, int, int, int);
         void showCommodity();
-        bool buyWeapon(Weapon);
+        int buyCommodity(int);
         void setScript(string);
-        void setCommodity(vector<Weapon>);
+        void setCommodity(vector<Commodity>);
         string getScript();
-        vector<Weapon> getCommodity();
+        vector<Commodity> getCommodity();
 };
+
+extern vector<string>NPCname;
+extern vector<string>script;
+
+ostream &operator<<(ostream&,const Commodity&);
+
+vector<Commodity> generateCommodities();
 
 #endif

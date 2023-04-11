@@ -4,10 +4,11 @@ using namespace std;
 
 Weapon::Weapon(){}
 
-Weapon::Weapon(string name, string occupation, int durability){
+Weapon::Weapon(string name, string occupation, int durability, int attack){
     this->name = name;
     this->occupation = occupation;
     this->durability = durability;
+    this->attack = attack;
 }
 
 void Weapon::setName(string name){
@@ -20,6 +21,14 @@ void Weapon::setDurability(int durability){
 
 void Weapon::setOccupation(string occupation){
     this->occupation = occupation;
+}
+
+void Weapon::setAttack(int attack){
+    this->attack = attack;
+}
+
+int Weapon::getAttack(){
+    return this->attack;
 }
 
 string Weapon::getName(){

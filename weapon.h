@@ -9,17 +9,20 @@ class Weapon{
     public:
         string name;
         string occupation;
-        int durability;        
+        int durability;
+        int attack;        
     
         Weapon();
-        Weapon(string, string, int);
+        Weapon(string, string, int, int);
         void consume();
         void setName(string);
         void setOccupation(string);
         void setDurability(int);
+        void setAttack(int);
         string getName();
         string getOccupation();
         int getDurability();
+        int getAttack();
         bool isBroken();
         void wear();
 };

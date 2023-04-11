@@ -5,7 +5,6 @@
 using namespace std;
 
 int getRandomNumer1(int a,int b){
-    srand(time(NULL));
     return (rand()%(b-a+1)+a);
 }
 
@@ -119,6 +118,10 @@ void Player::deleteBrokenWeapons(){
     setWeapons(afterDelete);
 }
 
+void Player::getNewWeapon(Weapon weapon){
+    this->weapons.push_back(weapon);
+}
+
 Tank::Tank(){
     cout<<"You are a Tank now!"<<endl;
     this->tag = "Tank";
@@ -198,7 +201,7 @@ void Tank::showStatus(){
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"          ";
+                cout<<"           ";
             }
             cout<<w[i]<<endl;
         }
@@ -206,13 +209,14 @@ void Tank::showStatus(){
     cout<<"-PerfectDefensePromity : "<<getPerfectDefensePromity()<<endl;
 }
 void Tank::attackMonster(Monster* monster, Weapon* weapon){
-    int totalAttack = getAttack();
+    int totalAttack = getAttack()+weapon->getAttack();
     if(weapon->getOccupation()=="Tank"){
         totalAttack*=1.5;
     }
     monster->hurt(totalAttack);
 }
 void Tank::hurt(int totalAttack){
+    srand(time(NULL));
     int pp = getRandomNumer1(1,100);
     if(pp<=getPerfectDefensePromity()){
         cout<<"Perfect Defense !!!"<<endl;
@@ -238,7 +242,7 @@ void Fighter::showStatus(){
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"          ";
+                cout<<"           ";
             }
             cout<<w[i]<<endl;
         }
@@ -246,8 +250,9 @@ void Fighter::showStatus(){
     cout<<"-HardStrikePromity : "<<getHardStrikePromity()<<endl;
 }
 void Fighter::attackMonster(Monster* monster,Weapon* weapon){
+    srand(time(NULL));
     int hp = getRandomNumer1(1,100);
-    int totalAttack = getAttack();
+    int totalAttack = getAttack()+weapon->getAttack();
     if(hp<=getHardStrikePromity()){
         cout<<"Hard Strike !!!"<<endl;
         totalAttack*=3;
@@ -278,7 +283,7 @@ void Magician::showStatus(){
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"          ";
+                cout<<"           ";
             }
             cout<<w[i]<<endl;
         }
@@ -286,7 +291,7 @@ void Magician::showStatus(){
     cout<<"-perfectHealPromity : "<<getPerfectHealthPromity()<<endl;
 }
 void Magician::attackMonster(Monster* monster,Weapon* weapon){
-    int totalAttack = getAttack();
+    int totalAttack = getAttack()+weapon->getAttack();
     if(weapon->getOccupation()=="Magician"){
         totalAttack*=1.5;
     }
@@ -294,6 +299,7 @@ void Magician::attackMonster(Monster* monster,Weapon* weapon){
 }
 void Magician::hurt(int totalAttack){
     setCurrentHealth(getCurrentHealth()-max(0,totalAttack-getDefense()));
+    srand(time(NULL));
     int pp = getRandomNumer1(1,100);
     if(pp<=getPerfectHealthPromity()){
         setCurrentHealth(getMaxHealth());
