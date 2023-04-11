@@ -65,12 +65,14 @@ string Room::getTag(){
 
 TreasureRoom::TreasureRoom(){
     this->tag = "TreasureRoom";
+    this->getTreasure = false;
 }
 
 TreasureRoom::TreasureRoom(Weapon dropWeapon,int dropMoney,Room *upRoom, Room *downRoom, Room *leftRoom, Room *rightRoom):Room(upRoom,downRoom,leftRoom,rightRoom){
     this->dropWeapon = dropWeapon;
     this->dropMoney = dropMoney;
     this->tag = "TreasureRoom";
+    this->getTreasure = false;
 }
 
 void TreasureRoom::setDropWeapon(Weapon dropWeapon){
@@ -147,6 +149,28 @@ void MonsterRoom::roomEvent(Player* player){
 
 void TreasureRoom::roomEvent(Player* player){
     cout<<"[TreasureRoom]"<<endl;
+    if(this->getTreasure==true){
+        cout<<"You have gotten the treasure already"<<endl;
+    }else{
+        cout<<"You find a treasure!!!"<<endl;
+        string choice;
+        do{
+            cout<<"Do you want to open it now? (A)Yes (B)No"<<endl<<"=>";
+            cin>>choice;
+            if(choice=="A"){
+                cout<<"You find a weapon: "<<getDropWeapon()<<", and ["<<getDropMoney()<<" dollars]"<<endl;
+                player->setMoney(player->getMoney()+getDropMoney());
+                player->getNewWeapon(getDropWeapon());
+                this->getTreasure = true;
+                break;
+            }else if(choice=="B"){
+                cout<<"say byebye to the treasure~"<<endl;
+                break;
+            }else{
+                cout<<choice<<" is not a choice"<<endl;
+            }
+        }while(true);
+    }
 }
 
 void NPCRoom::roomEvent(Player* player){
@@ -184,6 +208,5 @@ void NPCRoom::roomEvent(Player* player){
             cout<<buySomething<<" is not a choice"<<endl;
         }
     }while(true);
-    
-    
+     
 }

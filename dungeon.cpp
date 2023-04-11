@@ -39,8 +39,8 @@ Room* Dungeon::createMap(){
 
     NPCRoom *npcRoom_1 = new NPCRoom;
     vector<Commodity>commodity;
-    Weapon w1 = Weapon("Fighter Sword 1","Fighter",20,10);
-    Commodity c1 = Commodity(10,w1);
+    Weapon spit = Weapon("spit","all",20,15);
+    Commodity c1 = Commodity(0,spit);
     commodity.push_back(c1);
     srand(time(NULL));
     NPC *npc_1 = new NPC(script[getRandomNumer2(0,2)],commodity,NPCname[getRandomNumer2(0,3)],1,1,1,1);
@@ -50,7 +50,23 @@ Room* Dungeon::createMap(){
 
     TreasureRoom *treasureRoom_1 = new TreasureRoom(),*treasureRoom_2 = new TreasureRoom();
     Weapon weapon_1, weapon_2;
-    int money_1=10,money_2=10; //TODO: decide money
+    int money_1=10,money_2=10;
+    if(getPlayer()->getTag()=="Tank"){
+        weapon_1 = Weapon("helmet_1","Tank",50-13*1,15+10*1);
+        weapon_2 = Weapon("chest_1","Tank",50-13*1,25+10*1);
+        money_1 = 40;
+        money_2 = 100;
+    }else if(getPlayer()->getTag()=="Fighter"){
+        weapon_1 = Weapon("sword_1","Fighter",50-13*1,15+10*1);
+        weapon_2 = Weapon("arrow_1","Fighter",50-13*1,25+10*1);
+        money_1 = 40;
+        money_2 = 100;
+    }else{
+        weapon_1 = Weapon("flame_1","Magician",50-13*1,15+10*1);
+        weapon_2 = Weapon("lightning_1","Magician",50-13*1,25+10*1);
+        money_1 = 40;
+        money_2 = 100;
+    }
 
     initialRoom->setFourRoom(npcRoom_1,nullptr,nullptr,nullptr);
     npcRoom_1->setFourRoom(treasureRoom_1,initialRoom,monsterRoom_1,monsterRoom_2);
@@ -65,6 +81,11 @@ Room* Dungeon::createMap(){
     monsterRoom_3->setMonster(monster_3);
     
     npcRoom_1->setNPC(npc_1);
+
+    treasureRoom_1->setDropMoney(money_1);
+    treasureRoom_1->setDropWeapon(weapon_1);
+    treasureRoom_2->setDropMoney(money_2);
+    treasureRoom_2->setDropWeapon(weapon_2);
 
     return initialRoom;
 }
@@ -92,7 +113,6 @@ Player* Dungeon::createPlayer(){
     do{
         cout<<"Choose one occupation: (A)Tank (B)Fighter (C)Magacian"<<endl<<"=>";
         cin>>occupation;
-        
         if(occupation=="A"){
             cout<<"Your name:"<<endl<<"=>";
             cin.ignore();
@@ -121,21 +141,26 @@ Player* Dungeon::createPlayer(){
             cout<<occupation<<" is not an occupation choice !!!"<<endl;
         }
     }while(true);
-    player->setCurrentRoom(currentRoom);
 
     return player;
 }
 
 void Dungeon::startGame(){
-    setInitialRoom(createMap());
     setPlayer(createPlayer());
+    Room* initialRoom = createMap();
+    getPlayer()->setCurrentRoom(initialRoom);
+    setInitialRoom(initialRoom);
 }
 
-bool Dungeon::checkGameLogic(){
+int Dungeon::checkGameLogic(){
     if(getPlayer()->checkIsDead()){
-        return false;
+        return 0;
     }else{
-        return true;
+        if(getPlayer()->getLevel()==20){
+            return 1;
+        }else{
+            return 2;
+        }
     }
 }
 
@@ -186,7 +211,7 @@ void Dungeon::moveToAnotherRoom(){
 void Dungeon::runGame(){
     bool wantNextAction = true;
     string action;
-    while(checkGameLogic() && wantNextAction){
+    while(checkGameLogic()==2 && wantNextAction){
         do{
             cout<<"Choose next Action: (A)exit the game (B)move to another room (C)stay in this room (D)show status"<<endl<<"=>";
             cin>>action;
@@ -207,8 +232,10 @@ void Dungeon::runGame(){
             }
         }while(true);
     }
-    if(checkGameLogic()==false){
+    if(checkGameLogic()==0){
         cout<<"You lose ..."<<endl;
+    }else if(checkGameLogic()==1){
+        cout<<"You WIN !!!!"<<endl;
     }
     cout<<"End game, see you next time!"<<endl;
 }

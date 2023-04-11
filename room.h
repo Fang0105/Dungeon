@@ -36,10 +36,10 @@ class TreasureRoom: public Room{
     public:
         Weapon dropWeapon;
         int dropMoney;
+        bool getTreasure;
 
         TreasureRoom();
         TreasureRoom(Weapon,int,Room*,Room*,Room*,Room*);
-        void getTresure(Player*);
         void setDropWeapon(Weapon);
         void setDropMoney(int);
         Weapon getDropWeapon();

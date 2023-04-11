@@ -36,7 +36,7 @@ void battleSystem(Player *player,Monster *monster){
         }while(true);
     }
     if(player->checkIsDead()){
-
+        cout<<"You are dead..."<<endl;
     }else{
         player->heal();
     }
