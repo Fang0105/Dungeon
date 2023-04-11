@@ -137,6 +137,7 @@ void Dungeon::moveToAnotherRoom(){
                 cout<<"There is no room"<<endl;
             }else{
                 getPlayer()->setCurrentRoom(currentRoom->getUpRoom());
+                getPlayer()->currentRoom->roomEvent(getPlayer());
             }
             break;
         }else if(direction=="B"){
@@ -144,6 +145,7 @@ void Dungeon::moveToAnotherRoom(){
                 cout<<"There is no room"<<endl;
             }else{
                 getPlayer()->setCurrentRoom(currentRoom->getDownRoom());
+                getPlayer()->currentRoom->roomEvent(getPlayer());
             }
             break;
         }else if(direction=="C"){
@@ -151,6 +153,7 @@ void Dungeon::moveToAnotherRoom(){
                 cout<<"There is no room"<<endl;
             }else{
                 getPlayer()->setCurrentRoom(currentRoom->getLeftRoom());
+                getPlayer()->currentRoom->roomEvent(getPlayer());
             }
             break;
         }else if(direction=="D"){
@@ -158,13 +161,13 @@ void Dungeon::moveToAnotherRoom(){
                 cout<<"There is no room"<<endl;
             }else{
                 getPlayer()->setCurrentRoom(currentRoom->getRightRoom());
+                getPlayer()->currentRoom->roomEvent(getPlayer());
             }
             break;
         }else{
             cout<<direction<<" is not an direction choice !!!"<<endl;
         }
     }while(true);
-    getPlayer()->currentRoom->roomEvent(getPlayer());
 }
 
 void Dungeon::runGame(){
@@ -172,8 +175,7 @@ void Dungeon::runGame(){
     string action;
     while(checkGameLogic() && wantNextAction){
         do{
-            //getPlayer()->getCurrentRoom()->roomEvent(getPlayer());
-            cout<<"Choose next Action: (A)exit the game (B)move to another room (C)show status"<<endl<<"=>";
+            cout<<"Choose next Action: (A)exit the game (B)move to another room (C)stay in this room (D)show status"<<endl<<"=>";
             cin>>action;
             if(action=="A"){
                 wantNextAction = false;
@@ -182,6 +184,9 @@ void Dungeon::runGame(){
                 moveToAnotherRoom();
                 break;
             }else if(action=="C"){
+                getPlayer()->getCurrentRoom()->roomEvent(getPlayer());
+                break;
+            }else if(action=="D"){
                 getPlayer()->showStatus();
                 break;
             }else{

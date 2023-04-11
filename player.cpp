@@ -65,6 +65,7 @@ void Player::levelUp(){
     while( getLevel()<20 && getExp()>=100 ){
         cout<<"Level up : "<<getLevel();
         setMaxHealth(getMaxHealth()+100);
+        setCurrentHealth(getMaxHealth());
         setAttack(getAttack()+3);
         setDefense(getDefense()+1);
         setLevel(getLevel()+1);
@@ -182,27 +183,27 @@ int Magician::getPerfectHealthPromity(){
 
 //Tank
 void Tank::showStatus(){
-    cout<<"Name : "<<getName()<<endl;
-    cout<<"Occupation : "<<getTag()<<endl;
-    cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
-    cout<<"Attack : "<<getAttack()<<endl;
-    cout<<"Defense : "<<getDefense()<<endl;
-    cout<<"Money : "<<getMoney()<<endl;
-    cout<<"Level : "<<getLevel()<<endl;
-    cout<<"EXP : "<<getExp()<<endl;
-    cout<<"Weapons : ";
+    cout<<"-Name : "<<getName()<<endl;
+    cout<<"-Occupation : "<<getTag()<<endl;
+    cout<<"-Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
+    cout<<"-Attack : "<<getAttack()<<endl;
+    cout<<"-Defense : "<<getDefense()<<endl;
+    cout<<"-Money : "<<getMoney()<<endl;
+    cout<<"-Level : "<<getLevel()<<endl;
+    cout<<"-EXP : "<<getExp()<<endl;
+    cout<<"-Weapons : ";
     vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"         ";
+                cout<<"          ";
             }
             cout<<w[i]<<endl;
         }
     }
-    cout<<"PerfectDefensePromity : "<<getPerfectDefensePromity()<<endl;
+    cout<<"-PerfectDefensePromity : "<<getPerfectDefensePromity()<<endl;
 }
 void Tank::attackMonster(Monster* monster, Weapon* weapon){
     int totalAttack = getAttack();
@@ -222,27 +223,27 @@ void Tank::hurt(int totalAttack){
 
 //Fighter
 void Fighter::showStatus(){
-    cout<<"Name : "<<getName()<<endl;
-    cout<<"Occupation : "<<getTag()<<endl;
-    cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
-    cout<<"Attack : "<<getAttack()<<endl;
-    cout<<"Defense : "<<getDefense()<<endl;
-    cout<<"Money : "<<getMoney()<<endl;
-    cout<<"Level : "<<getLevel()<<endl;
-    cout<<"EXP : "<<getExp()<<endl;
-    cout<<"Weapons : ";
+    cout<<"-Name : "<<getName()<<endl;
+    cout<<"-Occupation : "<<getTag()<<endl;
+    cout<<"-Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
+    cout<<"-Attack : "<<getAttack()<<endl;
+    cout<<"-Defense : "<<getDefense()<<endl;
+    cout<<"-Money : "<<getMoney()<<endl;
+    cout<<"-Level : "<<getLevel()<<endl;
+    cout<<"-EXP : "<<getExp()<<endl;
+    cout<<"-Weapons : ";
     vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"         ";
+                cout<<"          ";
             }
             cout<<w[i]<<endl;
         }
     }
-    cout<<"HardStrikePromity : "<<getHardStrikePromity()<<endl;
+    cout<<"-HardStrikePromity : "<<getHardStrikePromity()<<endl;
 }
 void Fighter::attackMonster(Monster* monster,Weapon* weapon){
     int hp = getRandomNumer1(1,100);
@@ -262,27 +263,27 @@ void Fighter::hurt(int totalAttack){
 
 //Magician
 void Magician::showStatus(){
-    cout<<"Name : "<<getName()<<endl;
-    cout<<"Occupation : "<<getTag()<<endl;
-    cout<<"Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
-    cout<<"Attack : "<<getAttack()<<endl;
-    cout<<"Defense : "<<getDefense()<<endl;
-    cout<<"Money : "<<getMoney()<<endl;
-    cout<<"Level : "<<getLevel()<<endl;
-    cout<<"EXP : "<<getExp()<<endl;
-    cout<<"Weapons : ";
+    cout<<"-Name : "<<getName()<<endl;
+    cout<<"-Occupation : "<<getTag()<<endl;
+    cout<<"-Health : "<<getCurrentHealth()<<"/"<<getMaxHealth()<<endl;
+    cout<<"-Attack : "<<getAttack()<<endl;
+    cout<<"-Defense : "<<getDefense()<<endl;
+    cout<<"-Money : "<<getMoney()<<endl;
+    cout<<"-Level : "<<getLevel()<<endl;
+    cout<<"-EXP : "<<getExp()<<endl;
+    cout<<"-Weapons : ";
     vector<Weapon>w = getWeapons();
     if(w.size()==0){
        cout<<" no weapon"<<endl;
     }else{
         for(int i=0;i<w.size();i++){
             if(i!=0){
-                cout<<"         ";
+                cout<<"          ";
             }
             cout<<w[i]<<endl;
         }
     }
-    cout<<"perfectHealPromity : "<<getPerfectHealthPromity()<<endl;
+    cout<<"-perfectHealPromity : "<<getPerfectHealthPromity()<<endl;
 }
 void Magician::attackMonster(Monster* monster,Weapon* weapon){
     int totalAttack = getAttack();
