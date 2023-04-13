@@ -14,7 +14,6 @@ class Weapon{
     
         Weapon();
         Weapon(string, string, int, int);
-        void consume();
         void setName(string);
         void setOccupation(string);
         void setDurability(int);
