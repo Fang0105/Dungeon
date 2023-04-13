@@ -94,8 +94,8 @@ Player* Dungeon::createPlayer(){
     string occupation;
     //------------------------GameCharacter------------------------
     string name;
-    int maxHealth = 1000;
-    int currentHealth = 1000;
+    int maxHealth = 500;
+    int currentHealth = 500;
     int attack = 100;
     int defense = 25;
     //-------------------------------------------------------------
@@ -104,7 +104,7 @@ Player* Dungeon::createPlayer(){
     vector<Weapon> weapons;
     Weapon w = Weapon("Bare Hand","all",100,10);
     weapons.push_back(w);
-    int money = 1000;
+    int money = 200;
     int level = 0;
     int exp = 0;
     Room *currentRoom = getInitialRoom();
@@ -118,7 +118,7 @@ Player* Dungeon::createPlayer(){
             cin.ignore();
             getline(cin,name);
             int perfectDefensePromity = 0;
-            maxHealth = currentHealth = 2000;
+            maxHealth = currentHealth = 1000;
             player = new Tank(perfectDefensePromity,weapons,money,level,exp,name,maxHealth,currentHealth,attack,defense);
             break;
         }else if(occupation=="B"){
@@ -174,6 +174,7 @@ void Dungeon::moveToAnotherRoom(){
             if(currentRoom->getUpRoom()==nullptr){
                 cout<<"There is no room"<<endl;
             }else{
+                getPlayer()->setMoney(getPlayer()->getMoney()-15);
                 getPlayer()->setCurrentRoom(currentRoom->getUpRoom());
                 getPlayer()->currentRoom->roomEvent(getPlayer());
             }
@@ -182,6 +183,7 @@ void Dungeon::moveToAnotherRoom(){
             if(currentRoom->getDownRoom()==nullptr){
                 cout<<"There is no room"<<endl;
             }else{
+                getPlayer()->setMoney(getPlayer()->getMoney()-15);
                 getPlayer()->setCurrentRoom(currentRoom->getDownRoom());
                 getPlayer()->currentRoom->roomEvent(getPlayer());
             }
@@ -190,6 +192,7 @@ void Dungeon::moveToAnotherRoom(){
             if(currentRoom->getLeftRoom()==nullptr){
                 cout<<"There is no room"<<endl;
             }else{
+                getPlayer()->setMoney(getPlayer()->getMoney()-15);
                 getPlayer()->setCurrentRoom(currentRoom->getLeftRoom());
                 getPlayer()->currentRoom->roomEvent(getPlayer());
             }
@@ -198,6 +201,7 @@ void Dungeon::moveToAnotherRoom(){
             if(currentRoom->getRightRoom()==nullptr){
                 cout<<"There is no room"<<endl;
             }else{
+                getPlayer()->setMoney(getPlayer()->getMoney()-15);
                 getPlayer()->setCurrentRoom(currentRoom->getRightRoom());
                 getPlayer()->currentRoom->roomEvent(getPlayer());
             }
@@ -213,13 +217,17 @@ void Dungeon::runGame(){
     string action;
     while(checkGameLogic()==2 && wantNextAction){
         do{
-            cout<<"Choose next Action: (A)exit the game (B)move to another room (C)stay in this room (D)show status"<<endl<<"=>";
+            cout<<"Choose next Action: (A)exit the game (B)move to another room [tolls: 15 dollars] (C)stay in this room (D)show status"<<endl<<"=>";
             cin>>action;
             if(action=="A"){
                 wantNextAction = false;
                 break;
             }else if(action=="B"){
-                moveToAnotherRoom();
+                if(getPlayer()->getMoney() >= 15){
+                    moveToAnotherRoom();
+                }else{
+                    cout<<"Money is not enough."<<endl;
+                }
                 break;
             }else if(action=="C"){
                 getPlayer()->getCurrentRoom()->roomEvent(getPlayer());
