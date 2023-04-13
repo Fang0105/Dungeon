@@ -50,8 +50,13 @@ int NPC::buyCommodity(int money){
                 cout<<"Want to spend 20 dollars to refresh the commodities? (A)Yes (B)No"<<endl<<"=>";
                 cin>>choice;
                 if(choice=="A"){
-                    setCommodity(generateCommodities());
-                    return -2;
+                    if(money<20){
+                        cout<<"Money is not enough."<<endl;
+                        return -1;
+                    }else{
+                        setCommodity(generateCommodities());
+                        return -2;
+                    }
                 }else if(choice=="B"){
                     break;
                 }else{
