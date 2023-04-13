@@ -7,6 +7,21 @@ using namespace std;
 vector<string>NPCname = {"NPC_Hank", "NPC_Julia", "NPC_Alex", "NPC_Kelly"};
 vector<string>script = {"What's in my bag?", "Find the boss and beat it!", "beat monsters and level up!"};
 
+int stringToIntegerForBuyWeapon(string str){
+    int n = 0;
+    if(str=="-1"){
+        return -1;
+    }else{
+        for(char c:str){
+            if(c<='9'&&c>='0'){
+                n = n*10+(c-'0');
+            }else{
+                return -100;
+            }
+        }
+        return n;
+    }
+}
 
 NPC::NPC(){}
 
@@ -28,13 +43,15 @@ void NPC::showCommodity(){
 }
 
 int NPC::buyCommodity(int money){
-    int idx;
+    string idxString;
     vector<Commodity>commodity = getCommodity();
     do{
         cout<<"Choose one weapon:"<<endl<<"(-1) refresh the commodities"<<endl<<"(0) buy nothing"<<endl;
         showCommodity();
         cout<<"=>";
-        cin>>idx;
+        //cin.ignore();
+        getline(cin,idxString);
+        int idx = stringToIntegerForBuyWeapon(idxString);
         if( idx>0 && idx<=commodity.size() ){
             if( money >= commodity[idx-1].getPrice() ){
                 return idx-1;
@@ -48,7 +65,8 @@ int NPC::buyCommodity(int money){
             string choice;
             do{
                 cout<<"Want to spend 20 dollars to refresh the commodities? (A)Yes (B)No"<<endl<<"=>";
-                cin>>choice;
+                //cin.ignore();
+                getline(cin,choice);
                 if(choice=="A"){
                     if(money<20){
                         cout<<"Money is not enough."<<endl;
@@ -64,7 +82,7 @@ int NPC::buyCommodity(int money){
                 }
             }while(true);
         }else{
-            cout<<idx<<" is not a choice"<<endl;
+            cout<<idxString<<" is not a choice"<<endl;
         }
    }while(true);
 }

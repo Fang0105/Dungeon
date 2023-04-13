@@ -17,7 +17,8 @@ void battleSystem(Player *player,Monster *monster){
             cout<<player->getName()<<": "<<player->getCurrentHealth()<<"/"<<player->getMaxHealth()<<" , "<<monster->getName()<<": "<<monster->getCurrentHealth()<<"/"<<monster->getMaxHealth()<<endl;
             cout<<"Choose one Action: (A)Fight (B)retreat"<<endl<<"=>";
             string action;
-            cin>>action;
+            //cin.ignore();
+            getline(cin,action);
             if(action=="A"){
                 Weapon *weapon = player->chooseWeapon();
                 player->attackMonster(monster,weapon);

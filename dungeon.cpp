@@ -112,10 +112,11 @@ Player* Dungeon::createPlayer(){
     Player *player;
     do{
         cout<<"Choose one occupation: (A)Tank (B)Fighter (C)Magacian"<<endl<<"=>";
-        cin>>occupation;
+        //cin.ignore();
+        getline(cin,occupation);
         if(occupation=="A"){
             cout<<"Your name:"<<endl<<"=>";
-            cin.ignore();
+            //cin.ignore();
             getline(cin,name);
             int perfectDefensePromity = 0;
             maxHealth = currentHealth = 1000;
@@ -123,7 +124,7 @@ Player* Dungeon::createPlayer(){
             break;
         }else if(occupation=="B"){
             cout<<"Your name:"<<endl<<"=>";
-            cin.ignore();
+            //cin.ignore();
             getline(cin,name);
             int hardStrikePromity = 0;
             attack = 200;
@@ -131,7 +132,7 @@ Player* Dungeon::createPlayer(){
             break;
         }else if(occupation=="C"){
             cout<<"Your name:"<<endl<<"=>";
-            cin.ignore();
+            //cin.ignore();
             getline(cin,name);
             int perfectHealPromity = 0;
             defense = 50;
@@ -169,7 +170,8 @@ void Dungeon::moveToAnotherRoom(){
     do{
         cout<<"Choose one direction: (A)Up (B)Down (C)Left (D)Right"<<endl<<"=>";
         string direction;
-        cin>>direction;
+        //cin.ignore();
+        getline(cin,direction);
         if(direction=="A"){
             if(currentRoom->getUpRoom()==nullptr){
                 cout<<"There is no room"<<endl;
@@ -218,7 +220,8 @@ void Dungeon::runGame(){
     while(checkGameLogic()==2 && wantNextAction){
         do{
             cout<<"Choose next Action: (A)exit the game (B)move to another room [tolls: 15 dollars] (C)stay in this room (D)show status"<<endl<<"=>";
-            cin>>action;
+            //cin.ignore();
+            getline(cin,action);
             if(action=="A"){
                 wantNextAction = false;
                 break;

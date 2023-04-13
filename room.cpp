@@ -135,7 +135,8 @@ void MonsterRoom::roomEvent(Player* player){
     string fight;
     do{
         cout<<"Do you want to fight with monster? (A)Yes (B)No"<<endl<<"=>";
-        cin>>fight;
+        //cin.ignore();
+        getline(cin,fight);
         if(fight=="A"){
             battleSystem(player,getMonster());
             break;
@@ -156,7 +157,8 @@ void TreasureRoom::roomEvent(Player* player){
         string choice;
         do{
             cout<<"Do you want to open it now? (A)Yes (B)No"<<endl<<"=>";
-            cin>>choice;
+            //cin.ignore();
+            getline(cin,choice);
             if(choice=="A"){
                 cout<<"You find a weapon: "<<getDropWeapon()<<", and ["<<getDropMoney()<<" dollars]"<<endl;
                 player->setMoney(player->getMoney()+getDropMoney());
@@ -179,7 +181,8 @@ void NPCRoom::roomEvent(Player* player){
     string buySomething;
     do{
         cout<<"Want to buy something? (A)Yes (B)No"<<endl<<"=>";
-        cin>>buySomething;
+        //cin.ignore();
+        getline(cin,buySomething);
         if(buySomething=="A"){
             int idx = getNPC()->buyCommodity(player->getMoney());
             if(idx==-2){

@@ -8,6 +8,18 @@ int getRandomNumer1(int a,int b){
     return (rand()%(b-a+1)+a);
 }
 
+int stringToInteger(string str){
+    int n = 0;
+    for(char c:str){
+        if(c<='9'&&c>='0'){
+            n = n*10+(c-'0');
+        }else{
+            return -100;
+        }
+    }
+    return n;
+}
+
 Player::Player(){}
 
 Player::Player(vector<Weapon>weapons, int money, int level,int exp,string name, int maxHealth, int currentHealth, int attack, int defense):GameCharacter(name,maxHealth,currentHealth,attack,defense){
@@ -89,18 +101,20 @@ Weapon* Player::chooseWeapon(){
     if(this->weapons.size()==0){
        cout<<" no weapon"<<endl;
     }else{
-        int idx;
+        string idxString;
         do{
             cout<<"Choose one weapon :"<<endl;
             for(int i=0;i<this->weapons.size();i++){
                 cout<<"("<<i+1<<") "<<this->weapons[i]<<endl;
             }
             cout<<"=>";
-            cin>>idx;
+            //cin.ignore();
+            getline(cin,idxString);
+            int idx = stringToInteger(idxString);
             if( idx>0 && idx<=this->weapons.size() ){
                 return &this->weapons[idx-1];
             }else{
-                cout<<idx<<" is not a choice"<<endl;
+                cout<<idxString<<" is not a choice"<<endl;
             }
         }while(true);
     }
